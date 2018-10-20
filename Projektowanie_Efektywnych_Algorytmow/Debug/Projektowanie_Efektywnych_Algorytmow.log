@@ -1,4 +1,4 @@
 ﻿  Distance_Graph.cpp
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\distance_graph.cpp(32): warning C4305: 'argument': truncation from 'int' to 'const char'
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\distance_graph.cpp(32): warning C4309: 'argument': truncation of constant value
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\distance_graph.cpp(86): warning C4305: 'argument': truncation from 'int' to 'const char'
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\distance_graph.cpp(86): warning C4309: 'argument': truncation of constant value
   Projektowanie_Efektywnych_Algorytmow.vcxproj -> C:\Users\Metron\Documents\GitHub\Projektowanie_Efektywnych_Algorytmow\Debug\Projektowanie_Efektywnych_Algorytmow.exe
