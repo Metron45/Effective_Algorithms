@@ -4,8 +4,8 @@
 
 Distance_Graph::Distance_Graph()
 {
+	distance_table_size = 0;
 }
-
 
 Distance_Graph::~Distance_Graph()
 {
@@ -26,7 +26,7 @@ void Distance_Graph::set_matrix_sizeof(int size) {
 
 void Distance_Graph::instert_line_lower_diagram(std::string line) {
 	int position, position_line = 1, position_column = 0,number;
-
+	//finding uninitiated distance table space
 	while (distance_table[position_line][position_column] != 0) {
 		position_column++;
 		if (position_column >= position_line) {
@@ -34,8 +34,9 @@ void Distance_Graph::instert_line_lower_diagram(std::string line) {
 			position_column = 0;
 		}
 	}
+	//writing line into a matrix
 	while (line.back() == ' ') {
-		line = line.substr(0, line.size() - 2);
+		line = line.substr(0, line.size() - 1);
 	}
 	while (line.size() > 0) {
 		while (line.front() == ' ') {
@@ -44,7 +45,7 @@ void Distance_Graph::instert_line_lower_diagram(std::string line) {
 		position = line.find(' ');
 		if (position == -1) {
 			number = std::stoi(line);
-			line = "";
+			line ="";
 		}
 		else {
 			number = std::stoi(line.substr(0, position));
@@ -63,17 +64,20 @@ void Distance_Graph::instert_line_lower_diagram(std::string line) {
 
 void Distance_Graph::load_from_file()
 {
-	std::string name, data;
+	std::string filename;
+	std::cout << "Problem name :";
+	std::cin >> filename;
+	filename += ".tsp";
+	load_from_file(filename);
+}
+
+void Distance_Graph::load_from_file(std::string filename)
+{
+	std::string data;
 	std::fstream file;
 	std::size_t position;
 	int number_of_towns;
-
-	std::cout << "Problem name :";
-	std::cin >> name;
-	name += ".tsp";
-
-	file.open(name, std::ios::in);
-
+	file.open(filename, std::ios::in);
 	if (file.is_open()) {
 		//NAME :
 		getline(file, data);
@@ -84,12 +88,12 @@ void Distance_Graph::load_from_file()
 			//COMMENT :
 			getline(file, data);
 			position = data.find(':');
-			std::cout << std::setw(25) << "Comment to a problem: " << data.substr(position+1) << std::endl;
+			std::cout << std::setw(25) << "Comment to a problem: " << data.substr(position + 1) << std::endl;
 			//DIMENSION :
 			getline(file, data);
 			position = data.find(':');
-			std::cout << std::setw(25) << "Number of towns: " << data.substr(position+1) << std::endl;
-			number_of_towns = std::stoi(data.substr(position + 1));
+			std::cout << std::setw(25) << "Number of towns: " << data.substr(position + 1) << std::endl;
+			set_matrix_sizeof(std::stoi(data.substr(position + 1)));
 			//EDGE_WEIGHT_TYPE : EXPLICIT
 			getline(file, data);
 			position = data.find("EXPLICIT");
@@ -102,7 +106,6 @@ void Distance_Graph::load_from_file()
 				getline(file, data);
 				if (position > 0) {
 					matrix_type = "LOWER_DIAG_ROW";
-					set_matrix_sizeof(number_of_towns);
 					getline(file, data);
 					do {
 						instert_line_lower_diagram(data);
@@ -127,11 +130,25 @@ void Distance_Graph::load_from_file()
 
 void Distance_Graph::draw_distance_table()
 {
+	std::cout << std::setw(4) << " ";
+	for (int i = 0; i < distance_table_size; i++) {
+		std::cout << std::setw(4) << i;
+	}
+	std::cout << std::endl;
+
 	for (int line = 0; line < distance_table_size; line++) {
+		std::cout << std::setw(4) << line;
 		for (int column = 0; column < distance_table_size; column++) {
 			std::cout << std::setw(4) << distance_table[line][column];
 		}
 		std::cout << std::endl;
 	}
 
+}
+
+int Distance_Graph::get_distance(int line, int column) {
+	if (matrix_type == "LOWER_DIAG_ROW" && column >= line) {
+		return distance_table[column][line];
+	}
+	return distance_table[line][column];
 }

@@ -24,15 +24,21 @@
     <ClInclude Include="Distance_Graph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bruteforce.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Projektowanie_Efektywnych_Algorytmow.cpp">
+    <ClCompile Include="Distance_Graph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Distance_Graph.cpp">
+    <ClCompile Include="Bruteforce.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,6 +50,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="gr24.tsp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="test8.tsp">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
