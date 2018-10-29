@@ -149,12 +149,14 @@
   <ItemGroup>
     <ClInclude Include="Bruteforce.h" />
     <ClInclude Include="Distance_Graph.h" />
+    <ClInclude Include="Dynamic.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bruteforce.cpp" />
     <ClCompile Include="Distance_Graph.cpp" />
+    <ClCompile Include="Dynamic.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
