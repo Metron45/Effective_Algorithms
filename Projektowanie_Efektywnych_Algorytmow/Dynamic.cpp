@@ -52,15 +52,19 @@ void Dynamic::redo_routes(int * new_route, int route_iteration) {
 	int ** new_route_table = new int *[distance_table_size - 1];
 	for (int line = 0; line < distance_table_size - 1; line++) {
 		new_route_table[line] = new int[distance_table_size-1];
-		for (int column = 0; column < distance_table_size - 1; column++) {
-			new_route_table[line][column] = route_table[new_route[line]][column + 1];
+		if (route_table[line][0] > 0) {
+			for (int column = 0; column < distance_table_size - 1; column++) {
+				new_route_table[line][column] = route_table[new_route[line]][column + 1];
+			}
+			new_route_table[line][route_iteration - 1] = line + 1;
 		}
-		new_route_table[line][route_iteration-1] = line + 1;
 	}
 
 	for (int line = 0; line < distance_table_size - 1; line++) {
-		for (int column = 0; column < distance_table_size - 1; column++) {
-			route_table[line][column + 1]= new_route_table[line][column];
+		if (route_table[line][0] > 0) {
+			for (int column = 0; column < distance_table_size - 1; column++) {
+				route_table[line][column + 1] = new_route_table[line][column];
+			}
 		}
 	}
 }
@@ -72,33 +76,38 @@ int Dynamic::dynamic()
 	draw_route_table();
 	//for S having over 2 elements 
 	int *new_distance, *new_route;
-	for (int route_iteration = 2; route_iteration < 4; route_iteration++) {
+	for (int route_iteration = 2; route_iteration < distance_table_size; route_iteration++) {
 		new_distance =	new int[distance_table_size - 1];
 		new_route =		new int[distance_table_size - 1];
 		for (int route = 0; route < distance_table_size - 1; route++) {
-			new_distance[route] = 0;
-			//znalezienie min
-			for (int route_min = 0; route_min < distance_table_size - 1; route_min++) {
-				if (check_visited(route + 1, route_min)) {
-					if (new_distance[route] == 0) {
-						new_distance[route] = get_distance(route_table[route_min][route_iteration - 1], route + 1);
-						new_route[route] = route_min;
-					}
-					else if (route_table[route_min][0] + get_distance(route_table[route_min][route_iteration - 1], route + 1) < new_distance[route]) {
-						new_distance[route] = get_distance(route_table[route_min][route_iteration - 1], route + 1);
-						new_route[route] = route_min;
+			if (route_table[route][0] > 0) {
+				new_distance[route] = 0;
+				//znalezienie min
+				for (int route_min = 0; route_min < distance_table_size - 1; route_min++) {
+					if (check_visited(route + 1, route_min) && route_table[route_min][0] > 0) {
+						if (new_distance[route] <= 0) {
+							new_distance[route] = get_distance(route_table[route_min][route_iteration - 1], route + 1);
+							new_route[route] = route_min;
+						}
+						else if (route_table[route_min][0] + get_distance(route_table[route_min][route_iteration - 1], route + 1) < new_distance[route]) {
+							new_distance[route] = get_distance(route_table[route_min][route_iteration - 1], route + 1);
+							new_route[route] = route_min;
+						}
 					}
 				}
+				if (new_distance[route] == 0) {
+					route_table[route][0] = -1;
+				}
 			}
-			if (new_distance[route] = 0) {
-				//wykonanie operacji								------------------------------------------------------
+			else {
+				new_route[route] = -1;
 			}
-			std::cout << "min: " << std::setw(3) << route <<
-				std::setw(3) << new_distance[route] <<
-				std::setw(3) << new_route[route] << std::endl;
 		}
+		draw_route_table();
 		for (int route = 0; route < distance_table_size - 1; route++) {
-			route_table[route][0] += new_distance[route];
+			if (route_table[route][0] > 0) {
+				route_table[route][0] += new_distance[route];
+			}
 		}
 		redo_routes(new_route, route_iteration);
 	}
