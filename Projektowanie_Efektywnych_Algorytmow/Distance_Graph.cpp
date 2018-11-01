@@ -62,6 +62,29 @@ void Distance_Graph::instert_line_lower_diagram(std::string line) {
 	}
 }
 
+void Distance_Graph::instert_line_full_diagram(std::string line, int position_line) {
+	int position, position_column = 0, number;
+	while (line.back() == ' ') {
+		line = line.substr(0, line.size() - 1);
+	}
+	while (line.size() > 0) {
+		while (line.front() == ' ') {
+			line = line.substr(1, line.size() - 1);
+		}
+		position = line.find(' ');
+		if (position == -1) {
+			number = std::stoi(line);
+			line = "";
+		}
+		else {
+			number = std::stoi(line.substr(0, position));
+			line = line.substr(position, line.size() - 1);
+		}
+		distance_table[position_line][position_column] = number;
+		position_column++;
+	}
+}
+
 void Distance_Graph::load_from_file()
 {
 	std::string filename;
@@ -102,9 +125,9 @@ void Distance_Graph::load_from_file(std::string filename)
 				//EDGE_WEIGHT_FORMAT : LOWER_DIAG_ROW
 				getline(file, data);
 				position = data.find("LOWER_DIAG_ROW");
+				if (position > 0 && position < data.size()) {
 				std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
 				getline(file, data);
-				if (position > 0) {
 					matrix_type = "LOWER_DIAG_ROW";
 					getline(file, data);
 					do {
@@ -112,6 +135,23 @@ void Distance_Graph::load_from_file(std::string filename)
 						getline(file, data);
 						position = data.find("EOF");
 					} while (position == -1);
+				}
+				else {
+					position = data.find("FULL_MATRIX");
+					if (position > 0 && position < data.size()) {
+						std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
+						matrix_type = "FULL_MATRIX";
+						getline(file, data);
+						getline(file, data); //DISPLAY_DATA_TYPE: TWOD_DISPLAY	
+						getline(file, data); //EDGE_WEIGHT_SECTION
+						int line = 0;
+						do {
+							instert_line_full_diagram(data, line);
+							line++;
+							getline(file, data);
+							position = data.find("DISPLAY_DATA_SECTION");
+						} while (position == -1);
+					}
 				}
 			}
 			else {
@@ -151,4 +191,9 @@ int Distance_Graph::get_distance(int line, int column) {
 		return distance_table[column][line];
 	}
 	return distance_table[line][column];
+}
+
+int Distance_Graph::get_size()
+{
+	return distance_table_size;
 }

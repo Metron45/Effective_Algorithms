@@ -166,6 +166,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="bays29.opt.tour" />
+    <None Include="bays29.tsp" />
     <None Include="gr17.tsp" />
     <None Include="gr21.tsp" />
     <None Include="gr24.tsp" />
