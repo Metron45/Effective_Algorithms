@@ -78,21 +78,29 @@ void Dynamic::draw_route_table(int info_type) {
 }
 
 std::string Dynamic::get_route() {
-	std::string answer ="";
+	std::string route ="";
 	int mask = 1, vertex = 0, new_mask,new_vertex;
 	do {
-		answer += " ";
+		route += " ";
 		if (vertex >= 10) {
-			answer += (vertex - (vertex % 10)) / 10 + '0';
-			answer += (vertex % 10) + '0';
+			route += (vertex - (vertex % 10)) / 10 + '0';
+			route += (vertex % 10) + '0';
 		}
 		else {
-			answer += vertex + '0';
+			route += vertex + '0';
 		}
 		new_mask   = route_table[mask][vertex][2];
 		new_vertex = route_table[mask][vertex][1];
 		mask = new_mask;
 		vertex = new_vertex;
 	} while (vertex != 0);
-	return answer;
+	route += " ";
+	route += "0";
+	return route;
+}
+
+void Dynamic::write_results()
+{
+	std::cout << "Lowest travel value: " << dynamic() << std::endl;
+	std::cout << "Lowest travel route: " << get_route() << std::endl;
 }

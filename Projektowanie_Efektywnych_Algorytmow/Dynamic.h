@@ -14,5 +14,6 @@ public:
 	int dynamic(int mask, int position);
 	void draw_route_table(int info_type);
 	std::string get_route();
+	void write_results();
 };
 

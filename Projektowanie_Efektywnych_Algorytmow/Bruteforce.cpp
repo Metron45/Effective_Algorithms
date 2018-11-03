@@ -49,3 +49,8 @@ int Bruteforce::bruteforce()
 	}
 	return distance_shortest;
 }
+
+void Bruteforce::write_results()
+{
+	bruteforce();
+}

@@ -9,5 +9,6 @@ public:
 	Bruteforce();
 	~Bruteforce();
 	int bruteforce();
+	void write_results();
 };
 

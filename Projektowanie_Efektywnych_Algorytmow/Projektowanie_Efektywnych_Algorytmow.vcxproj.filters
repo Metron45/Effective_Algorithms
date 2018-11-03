@@ -30,6 +30,9 @@
     <ClInclude Include="Dynamic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bound_And_Branch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Dynamic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bound_And_Branch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,6 +71,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="bays29.tsp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="test10.tsp">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

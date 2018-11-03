@@ -85,6 +85,33 @@ void Distance_Graph::instert_line_full_diagram(std::string line, int position_li
 	}
 }
 
+
+
+float * Distance_Graph::string_to_array_GEO(std::string line)
+{
+	while (line.back() == ' ') {
+		line = line.substr(0, line.size() - 1);
+	}
+	while (line.front() == ' ') {
+		line = line.substr(1, line.size() - 1);
+	}
+	while (line.front() != ' ') {
+		line = line.substr(1, line.size() - 1);
+	}
+	while (line.front() == ' ') {
+		line = line.substr(1, line.size() - 1);
+	}
+	float * array = new float[2];
+	int position = line.find(' ');
+	array[1] = std::stoi(line.substr(0, position));
+	array[2] = std::stoi(line.substr(position, line.size()));
+	return array;
+}
+
+void Distance_Graph::initialize_distance_table_GEO(float ** geo_position)
+{
+}
+
 void Distance_Graph::load_from_file()
 {
 	std::string filename;
@@ -120,42 +147,62 @@ void Distance_Graph::load_from_file(std::string filename)
 			//EDGE_WEIGHT_TYPE : EXPLICIT
 			getline(file, data);
 			position = data.find("EXPLICIT");
-			std::cout << std::setw(25) << "Edge Weight Type: " << data.substr(position) << std::endl;
-			if (position > 0) {
-				//EDGE_WEIGHT_FORMAT : LOWER_DIAG_ROW
-				getline(file, data);
-				position = data.find("LOWER_DIAG_ROW");
-				if (position > 0 && position < data.size()) {
-				std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
-				getline(file, data);
-					matrix_type = "LOWER_DIAG_ROW";
+			if (position > 0 && position < data.size()) {
+				std::cout << std::setw(25) << "Edge Weight Type: " << data.substr(position) << std::endl;
+				if (position > 0) {
+					//EDGE_WEIGHT_FORMAT : LOWER_DIAG_ROW
 					getline(file, data);
-					do {
-						instert_line_lower_diagram(data);
-						getline(file, data);
-						position = data.find("EOF");
-					} while (position == -1);
-				}
-				else {
-					position = data.find("FULL_MATRIX");
+					position = data.find("LOWER_DIAG_ROW");
 					if (position > 0 && position < data.size()) {
 						std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
-						matrix_type = "FULL_MATRIX";
 						getline(file, data);
-						getline(file, data); //DISPLAY_DATA_TYPE: TWOD_DISPLAY	
-						getline(file, data); //EDGE_WEIGHT_SECTION
-						int line = 0;
+						matrix_type = "LOWER_DIAG_ROW";
+						getline(file, data);
 						do {
-							instert_line_full_diagram(data, line);
-							line++;
+							instert_line_lower_diagram(data);
 							getline(file, data);
-							position = data.find("DISPLAY_DATA_SECTION");
+							position = data.find("EOF");
 						} while (position == -1);
 					}
+					else {
+						position = data.find("FULL_MATRIX");
+						if (position > 0 && position < data.size()) {
+							std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
+							matrix_type = "FULL_MATRIX";
+							getline(file, data);
+							getline(file, data); //DISPLAY_DATA_TYPE: TWOD_DISPLAY	
+							getline(file, data); //EDGE_WEIGHT_SECTION
+							int line = 0;
+							do {
+								instert_line_full_diagram(data, line);
+								line++;
+								getline(file, data);
+								position = data.find("DISPLAY_DATA_SECTION");
+							} while (position == -1);
+						}
+					}
+				}
+				else {
+					std::cout << "Program doesn't work with non-explicit distances" << std::endl;
 				}
 			}
 			else {
-				std::cout << "Program doesn't work with non-explicit distances" << std::endl;
+				position = data.find("GEO");
+				if (position > 0 && position < data.size()) {
+					std::cout << std::setw(25) << "Edge Weight Type: " << data.substr(position) << std::endl;
+					getline(file, data);
+					getline(file, data);
+					float ** geo_position, * temp;
+					geo_position = new float *[get_size()];
+					temp = new float[2];
+					for (int i = 0; i < get_size(); i++) {
+						geo_position[i] = new float[2];
+						temp = string_to_array_GEO(data);
+						geo_position[i][0] = temp[0];
+						geo_position[i][1] = temp[1];
+					}
+					initialize_distance_table_GEO(geo_position);
+				}
 			}
 		}
 		else {

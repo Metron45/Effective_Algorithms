@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bound_And_Branch.h" />
     <ClInclude Include="Bruteforce.h" />
     <ClInclude Include="Distance_Graph.h" />
     <ClInclude Include="Dynamic.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bound_And_Branch.cpp" />
     <ClCompile Include="Bruteforce.cpp" />
     <ClCompile Include="Distance_Graph.cpp" />
     <ClCompile Include="Dynamic.cpp" />
@@ -171,6 +173,7 @@
     <None Include="gr17.tsp" />
     <None Include="gr21.tsp" />
     <None Include="gr24.tsp" />
+    <None Include="test10.tsp" />
     <None Include="test8.tsp" />
   </ItemGroup>
   <ItemGroup>
