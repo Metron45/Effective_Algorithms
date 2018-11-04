@@ -42,15 +42,39 @@ int Bruteforce::bruteforce()
 			}
 		}
 	} while (std::next_permutation(route + 1, route + distance_table_size));
-	std::cout << "Lowest travel value: " << distance_shortest << std::endl;
-	std::cout << "Lowest travel route: " << std::endl;
+	final_res = distance_shortest;
+	final_route = new int[get_size() + 1];
 	for (int i = 0; i <= distance_table_size; ++i) {
-		std::cout << std::setw(3) << route_shortest[i];
+		final_route[i] = route_shortest[i];
 	}
 	return distance_shortest;
+}
+
+std::string Bruteforce::get_route()
+{
+	std::string route;
+	for (int i = 0; i < get_size() + 1; i++) {
+		route += " ";
+		if (final_route[i] >= 10) {
+			route += (final_route[i] - (final_route[i] % 10)) / 10 + '0';
+			route += (final_route[i] % 10) + '0';
+		}
+		else {
+			route += final_route[i] + '0';
+		}
+	}
+
+	return route;
+}
+
+int Bruteforce::get_final_distance()
+{
+	return final_res;
 }
 
 void Bruteforce::write_results()
 {
 	bruteforce();
+	std::cout << "Lowest travel value: " << get_final_distance() << std::endl;
+	std::cout << "Lowest travel route: " << get_route() << std::endl;
 }

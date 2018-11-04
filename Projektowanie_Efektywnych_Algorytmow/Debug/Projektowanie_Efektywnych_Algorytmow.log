@@ -1,6 +1,2 @@
-﻿  Bound_And_Branch.cpp
-c:\users\metro\onedrive\dokumenty\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\bound_and_branch.cpp(134): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
-c:\users\metro\onedrive\dokumenty\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\bound_and_branch.cpp(148): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
-  Main.cpp
-  Generating Code...
-  Projektowanie_Efektywnych_Algorytmow.vcxproj -> C:\Users\Metro\OneDrive\Dokumenty\Github\Projektowanie_Efektywnych_Algorytmow\Debug\Projektowanie_Efektywnych_Algorytmow.exe
+﻿  Test.cpp
+  Projektowanie_Efektywnych_Algorytmow.vcxproj -> C:\Users\Metron\Documents\GitHub\Projektowanie_Efektywnych_Algorytmow\Debug\Projektowanie_Efektywnych_Algorytmow.exe

@@ -16,14 +16,14 @@ Dynamic::~Dynamic()
 
 void Dynamic::initialize_route_table() 
 {
-	route_table = new long long **[1 << get_size()];
+	route_table = new unsigned  **[1 << get_size()];
 	for (int line = 0; line < (1 << get_size()); line++) {
-		route_table[line] = new long long *[get_size()];
+		route_table[line] = new unsigned  *[get_size()];
 		for (int column = 0; column< get_size() ; column++) {
-			route_table[line][column] = new long long[3];
-			route_table[line][column][0] = -1;
-			route_table[line][column][1] = -1;
-			route_table[line][column][2] = -1;
+			route_table[line][column] = new unsigned[3];
+			route_table[line][column][0] = 0;
+			route_table[line][column][1] = 0;
+			route_table[line][column][2] = 0;
 		}
 	}
 }
@@ -47,7 +47,7 @@ int  Dynamic::dynamic(int visited, int current_city) {
 	for (int city = 0; city < get_size(); city++) {
 		if ((visited&(1 << city)) == 0) {
 			int new_answer = get_distance(current_city,city) + dynamic(visited | (1 << city), city);
-			if (route_table[visited][current_city][0] == -1) {
+			if (route_table[visited][current_city][0] == 0) {
 				route_table[visited][current_city][0] = new_answer;
 				route_table[visited][current_city][1] = city;
 				route_table[visited][current_city][2] = visited | (1 << city);
@@ -60,6 +60,7 @@ int  Dynamic::dynamic(int visited, int current_city) {
 		}
 
 	}
+	final_res = route_table[visited][current_city][0];
 	return  route_table[visited][current_city][0];
 }
 
@@ -99,8 +100,14 @@ std::string Dynamic::get_route() {
 	return route;
 }
 
+int Dynamic::get_final_distance()
+{
+	return final_res;
+}
+
 void Dynamic::write_results()
 {
-	std::cout << "Lowest travel value: " << dynamic() << std::endl;
+	dynamic();
+	std::cout << "Lowest travel value: " << get_final_distance() << std::endl;
 	std::cout << "Lowest travel route: " << get_route() << std::endl;
 }

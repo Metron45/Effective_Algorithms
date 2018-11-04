@@ -85,8 +85,7 @@ void Bound_And_Branch::write_results()
 
 void Bound_And_Branch::bnb(int curr_bound, int curr_weight, int level, int * curr_route) {
 	if (level == get_size()) {
-		if (get_distance(curr_route[level - 1], curr_route[0]) != 0)
-		{
+		if (get_distance(curr_route[level - 1], curr_route[0]) != 0){
 			int curr_res = curr_weight + get_distance(curr_route[level - 1],curr_route[0]);
 			if (curr_res < final_res || final_res == -1){
 				temp_to_final(curr_route);
@@ -100,8 +99,7 @@ void Bound_And_Branch::bnb(int curr_bound, int curr_weight, int level, int * cur
 				int temp = curr_bound;
 				curr_weight += get_distance(curr_route[level - 1], i);
 				curr_bound = calculate_bound(curr_bound, i, level, curr_route);
-				if (curr_bound + curr_weight < final_res || final_res == -1)
-				{
+				if (curr_bound + curr_weight < final_res || final_res == -1){
 					curr_route[level] = i;
 					visited += 1 << i;
 					bnb(curr_bound, curr_weight, level + 1, curr_route);
@@ -123,12 +121,10 @@ int Bound_And_Branch::calculate_bound(int bound, int city, int level, int * rout
 	if (level == 1) {
 		edge_first = minimal_edge(route[level - 1]);
 		edge_second = minimal_edge(city);
-		//bound -= ((minimal_edge(route[level - 1]) + minimal_edge(city)) / 2);
 	}
 	else {
 		edge_first = minimal_second_edge(route[level - 1]);
 		edge_second = minimal_edge(city);
-		//bound -= ((minimal_second_edge(route[level - 1]) + minimal_edge(city)) / 2);
 	}
 	int temp = edge_first + edge_second;
 	temp = (temp & 1 == 1) ? temp / 2 + 1 : temp / 2;
@@ -137,6 +133,9 @@ int Bound_And_Branch::calculate_bound(int bound, int city, int level, int * rout
 }
 
 void Bound_And_Branch::bnb() {
+	final_res = -1;
+	visited = 0;
+
 	int * curr_route, curr_bound = 0; 
 	curr_route = new int[get_size() + 1];
 	for (int i = 0; i < get_size() + 1; i++) {

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\</FILEPATH>
+      <FILENAME>bound_and_branch.cpp</FILENAME>
+      <LINE>5</LINE>
+      <COLUMN>18</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Bound_And_Branch::final_route' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Bound_And_Branch::{ctor}</FUNCTION>
+    <DECORATED>??0Bound_And_Branch@@QAE@XZ</DECORATED>
+    <FUNCLINE>5</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\</FILEPATH>
+      <FILENAME>bound_and_branch.cpp</FILENAME>
+      <LINE>5</LINE>
+      <COLUMN>18</COLUMN>
+    </SFA>
+    <DEFECTCODE>26439</DEFECTCODE>
+    <DESCRIPTION>This kind of function may not throw. Declare it 'noexcept' (f.6).</DESCRIPTION>
+    <FUNCTION>Bound_And_Branch::{ctor}</FUNCTION>
+    <DECORATED>??0Bound_And_Branch@@QAE@XZ</DECORATED>
+    <FUNCLINE>5</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\</FILEPATH>
+      <FILENAME>bound_and_branch.cpp</FILENAME>
+      <LINE>134</LINE>
+      <COLUMN>18</COLUMN>
+    </SFA>
+    <DEFECTCODE>6281</DEFECTCODE>
+    <DESCRIPTION>Incorrect order of operations:  relational operators have higher precedence than bitwise operators.</DESCRIPTION>
+    <FUNCTION>Bound_And_Branch::calculate_bound</FUNCTION>
+    <DECORATED>?calculate_bound@Bound_And_Branch@@AAEHHHHPAH@Z</DECORATED>
+    <FUNCLINE>120</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\</FILEPATH>
+      <FILENAME>bound_and_branch.cpp</FILENAME>
+      <LINE>148</LINE>
+      <COLUMN>30</COLUMN>
+    </SFA>
+    <DEFECTCODE>6281</DEFECTCODE>
+    <DESCRIPTION>Incorrect order of operations:  relational operators have higher precedence than bitwise operators.</DESCRIPTION>
+    <FUNCTION>Bound_And_Branch::bnb</FUNCTION>
+    <DECORATED>?bnb@Bound_And_Branch@@QAEXXZ</DECORATED>
+    <FUNCLINE>139</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

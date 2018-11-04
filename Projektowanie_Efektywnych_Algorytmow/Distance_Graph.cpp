@@ -26,6 +26,18 @@ void Distance_Graph::set_matrix_sizeof(int size) {
 
 void Distance_Graph::instert_line_lower_diagram(std::string line) {
 	int position, position_line = 1, position_column = 0,number;
+
+	while (line.back() == ' ') {
+		line = line.substr(0, line.size() - 1);
+	}
+	//test
+	while (line.front() == ' ') {
+		line = line.substr(1, line.size());
+	}
+	position = line.find(' ');
+	if (position < 0 && std::stoi(line) == 0) {
+		return;
+	}
 	//finding uninitiated distance table space
 	while (distance_table[position_line][position_column] != 0) {
 		position_column++;
@@ -35,9 +47,7 @@ void Distance_Graph::instert_line_lower_diagram(std::string line) {
 		}
 	}
 	//writing line into a matrix
-	while (line.back() == ' ') {
-		line = line.substr(0, line.size() - 1);
-	}
+	
 	while (line.size() > 0) {
 		while (line.front() == ' ') {
 			line = line.substr(1, line.size() - 1);
@@ -85,43 +95,125 @@ void Distance_Graph::instert_line_full_diagram(std::string line, int position_li
 	}
 }
 
-
-
-float * Distance_Graph::string_to_array_GEO(std::string line)
+double Distance_Graph::geo_string_to_array_1(std::string line)
 {
 	while (line.back() == ' ') {
-		line = line.substr(0, line.size() - 1);
+		line = line.substr(0, line.size() - 2);
 	}
 	while (line.front() == ' ') {
 		line = line.substr(1, line.size() - 1);
 	}
-	while (line.front() != ' ') {
-		line = line.substr(1, line.size() - 1);
-	}
+	int position;
+	position = line.find(' ');
+	line = line.substr(position, line.size()-1);
 	while (line.front() == ' ') {
 		line = line.substr(1, line.size() - 1);
 	}
-	float * array = new float[2];
-	int position = line.find(' ');
-	array[1] = std::stoi(line.substr(0, position));
-	array[2] = std::stoi(line.substr(position, line.size()));
+	double array;
+	position = line.find(' ');
+	array = std::stod(line.substr(0, position));
 	return array;
 }
 
-void Distance_Graph::initialize_distance_table_GEO(float ** geo_position)
+double Distance_Graph::geo_string_to_array_2(std::string line)
 {
+	while (line.back() == ' ') {
+		line = line.substr(0, line.size() - 2);
+	}
+	while (line.front() == ' ') {
+		line = line.substr(1, line.size() - 1);
+	}
+	int position;
+	position = line.find(' ');
+	line = line.substr(position, line.size() - 1);
+	while (line.front() == ' ') {
+		line = line.substr(1, line.size() - 1);
+	}
+	position = line.find(' ');
+	line = line.substr(position, line.size() - 1);
+	while (line.front() == ' ') {
+		line = line.substr(1, line.size() - 1);
+	}
+	double array;
+	position = line.find(' ');
+	array = std::stod(line.substr(0, position));
+	return array;
 }
 
-void Distance_Graph::load_from_file()
+double Distance_Graph::geo_radian(double x) {
+	double deg = (int) x;
+	double min = x - deg;
+	return (3.141592 * (deg + 0.5 * min / 3.0) / 180);
+}
+
+int Distance_Graph::geo_distance(int line, int column, double ** geo_position) {
+	double latitudeI, latitudeJ, longitudeI, longitudeJ;
+	latitudeI  = geo_radian(geo_position[line][0]);
+	latitudeJ  = geo_radian(geo_position[column][0]);
+	longitudeI = geo_radian(geo_position[line][1]);
+	longitudeJ = geo_radian(geo_position[column][1]);
+	double q1, q2, q3;
+	q1 = cos(latitudeI - latitudeJ);
+	q2 = cos(longitudeI - longitudeJ);
+	q3 = cos(longitudeI + longitudeJ);
+	return (int)(6378.388 * acos(0.5*((1.0 + q1)*q2 - (1.0 - q1)*q3)) + 1.0);
+}
+
+void Distance_Graph::geo_initialize_distance_table(double ** geo_position)
+{
+	for (int line = 0; line < get_size(); line++) {
+		for (int column = 0; column < get_size(); column ++) {
+			if (line != column) {
+				distance_table[line][column] = geo_distance(line, column, geo_position);
+			}
+			else {
+				distance_table[line][column] = 0;
+			}
+		}
+	}
+} 
+
+void Distance_Graph::initialize_table_INTMAX()
+{
+	srand(time(NULL));
+	int random;
+
+	for (int line = 0; line < get_size(); line++) {
+		for(int column = 0;column <= line ;column++){
+			if (column == line) {
+				distance_table[line][column] = 0;
+			}
+			else {
+				random = 8 + rand() % 256;
+				distance_table[line][column] = random;
+				distance_table[column][line] = random;
+			}
+		}
+	}
+}
+
+void Distance_Graph::insert_shortest_INTMIN()
+{
+	distance_table[0][curr_min_route[0]] = 8;
+	distance_table[curr_min_route[0]][0] = 8;
+	for (int edge = 0; edge < get_size()-2; edge++) {
+		distance_table[curr_min_route[edge]][curr_min_route[edge + 1]] = 8;
+		distance_table[curr_min_route[edge + 1]][curr_min_route[edge]] = 8;
+	}
+	distance_table[curr_min_route[get_size() - 2]][0] = 8;
+	distance_table[0][curr_min_route[get_size() - 2]] = 8;
+}
+
+bool Distance_Graph::load_from_file()
 {
 	std::string filename;
 	std::cout << "Problem name :";
 	std::cin >> filename;
 	filename += ".tsp";
-	load_from_file(filename);
+	return load_from_file(filename);
 }
 
-void Distance_Graph::load_from_file(std::string filename)
+bool Distance_Graph::load_from_file(std::string filename)
 {
 	std::string data;
 	std::fstream file;
@@ -192,27 +284,29 @@ void Distance_Graph::load_from_file(std::string filename)
 					std::cout << std::setw(25) << "Edge Weight Type: " << data.substr(position) << std::endl;
 					getline(file, data);
 					getline(file, data);
-					float ** geo_position, * temp;
-					geo_position = new float *[get_size()];
-					temp = new float[2];
+					getline(file, data);
+					double ** geo_position;
+					geo_position = new double *[get_size()];
 					for (int i = 0; i < get_size(); i++) {
-						geo_position[i] = new float[2];
-						temp = string_to_array_GEO(data);
-						geo_position[i][0] = temp[0];
-						geo_position[i][1] = temp[1];
+						getline(file, data);
+						geo_position[i] = new double[2];
+						geo_position[i][0] = geo_string_to_array_1(data);
+						geo_position[i][1] = geo_string_to_array_2(data);
 					}
-					initialize_distance_table_GEO(geo_position);
+					geo_initialize_distance_table(geo_position);
 				}
 			}
 		}
 		else {
 			std::cout << "Problem is not TSP" << std::endl;
+			return false;
 		}
 	}
 	else {
-		std::cout << "Bo such problem file";
+		std::cout << "No such problem file";
+		return false;
 	}
-
+	return true;
 }
 
 void Distance_Graph::draw_distance_table()
@@ -234,7 +328,7 @@ void Distance_Graph::draw_distance_table()
 }
 
 int Distance_Graph::get_distance(int line, int column) {
-	if (matrix_type == "LOWER_DIAG_ROW" && column >= line) {
+	if (matrix_type == "LOWER_DIAG_ROW" && column > line) {
 		return distance_table[column][line];
 	}
 	return distance_table[line][column];
@@ -243,4 +337,24 @@ int Distance_Graph::get_distance(int line, int column) {
 int Distance_Graph::get_size()
 {
 	return distance_table_size;
+}
+
+void Distance_Graph::generate_random(int size)
+{
+	set_matrix_sizeof(size);
+	initialize_table_INTMAX();
+	curr_min_route = new int[get_size()-1];
+	for (int i = 1; i < get_size(); i++) {
+		curr_min_route[i-1] = i;
+	}
+	std::random_shuffle(curr_min_route, curr_min_route + get_size() - 1);
+	insert_shortest_INTMIN();
+	matrix_type = "FULL_MATRIX";
+}
+
+void Distance_Graph::generate_next_random()
+{
+	std::random_shuffle(curr_min_route, curr_min_route + get_size() - 1);
+	initialize_table_INTMAX();
+	insert_shortest_INTMIN();
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\</FILEPATH>
+      <FILENAME>distance_graph.cpp</FILENAME>
+      <LINE>5</LINE>
+      <COLUMN>16</COLUMN>
+    </SFA>
+    <DEFECTCODE>26439</DEFECTCODE>
+    <DESCRIPTION>This kind of function may not throw. Declare it 'noexcept' (f.6).</DESCRIPTION>
+    <FUNCTION>Distance_Graph::{ctor}</FUNCTION>
+    <DECORATED>??0Distance_Graph@@QAE@XZ</DECORATED>
+    <FUNCLINE>5</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\</FILEPATH>
+      <FILENAME>distance_graph.cpp</FILENAME>
+      <LINE>5</LINE>
+      <COLUMN>16</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Distance_Graph::curr_min_route' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Distance_Graph::{ctor}</FUNCTION>
+    <DECORATED>??0Distance_Graph@@QAE@XZ</DECORATED>
+    <FUNCLINE>5</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\</FILEPATH>
+      <FILENAME>distance_graph.cpp</FILENAME>
+      <LINE>5</LINE>
+      <COLUMN>16</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>Variable 'Distance_Graph::distance_table' is uninitialized. Always initialize a member variable (type.6).</DESCRIPTION>
+    <FUNCTION>Distance_Graph::{ctor}</FUNCTION>
+    <DECORATED>??0Distance_Graph@@QAE@XZ</DECORATED>
+    <FUNCLINE>5</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>
