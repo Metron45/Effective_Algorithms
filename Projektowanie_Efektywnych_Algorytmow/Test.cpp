@@ -138,7 +138,7 @@ void Test::test_time_bruteforce(int size, int amount)
 		clock = std::chrono::high_resolution_clock::now();
 		matrix.bruteforce();
 		diff = std::chrono::high_resolution_clock::now() - clock;
-		if (matrix.get_final_distance() > matrix.get_size() * 8) {
+		if (matrix.getFinalDistance() > matrix.get_size() * 8) {
 			std::cout << std::endl << "Algorithm has failed" << std::endl;
 			break;
 		}
@@ -162,7 +162,7 @@ void Test::test_time_dynamic(int size, int amount)
 		clock = std::chrono::high_resolution_clock::now();
 		matrix.dynamic();
 		diff = std::chrono::high_resolution_clock::now() - clock;
-		if (matrix.get_final_distance() > matrix.get_size() * 8) {
+		if (matrix.getFinalDistance() > matrix.get_size() * 8) {
 			std::cout << std::endl << "Algorithm has failed" << std::endl;
 			break;
 		}
@@ -186,7 +186,7 @@ void Test::test_time_bnb(int size, int amount)
 		clock = std::chrono::high_resolution_clock::now();
 		matrix.bnb();
 		diff = std::chrono::high_resolution_clock::now() - clock;
-		if (matrix.get_final_distance() > matrix.get_size() * 8) {
+		if (matrix.getFinalDistance() > matrix.get_size() * 8) {
 			std::cout << std::endl << "Algorithm has failed" << std::endl;
 			break;
 		}
@@ -233,7 +233,7 @@ void Test::test_random_bruteforce(int size)
 	matrix.generate_random(size);
 	matrix.draw_distance_table();
 	matrix.write_results();
-	if (matrix.get_final_distance() > matrix.get_size() * 8) {
+	if (matrix.getFinalDistance() > matrix.get_size() * 8) {
 		std::cout << std::endl << "Algorithm has failed" << std::endl;
 	}
 	std::cout << std::endl;
@@ -245,7 +245,7 @@ void Test::test_random_dynamic(int size)
 	matrix.generate_random(size);
 	matrix.draw_distance_table();
 	matrix.write_results();
-	if (matrix.get_final_distance() > matrix.get_size() * 8) {
+	if (matrix.getFinalDistance() > matrix.get_size() * 8) {
 		std::cout << std::endl << "Algorithm has failed" << std::endl;
 	}
 	std::cout << std::endl;
@@ -257,7 +257,7 @@ void Test::test_random_bnb(int size)
 	matrix.generate_random(size);
 	matrix.draw_distance_table();
 	matrix.write_results();
-	if (matrix.get_final_distance() > matrix.get_size() * 8) {
+	if (matrix.getFinalDistance() > matrix.get_size() * 8) {
 		std::cout << std::endl << "Algorithm has failed" << std::endl;
 	}
 	std::cout << std::endl;

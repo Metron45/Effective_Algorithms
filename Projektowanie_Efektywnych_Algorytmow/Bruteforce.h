@@ -10,8 +10,8 @@ public:
 	Bruteforce();
 	~Bruteforce();
 	int bruteforce();
-	std::string get_route();
-	int get_final_distance();
+	std::string getFinalRoute();
+	int getFinalDistance();
 	void write_results();
 };
 

@@ -50,7 +50,7 @@ int Bruteforce::bruteforce()
 	return distance_shortest;
 }
 
-std::string Bruteforce::get_route()
+std::string Bruteforce::getFinalRoute()
 {
 	std::string route;
 	for (int i = 0; i < get_size() + 1; i++) {
@@ -67,7 +67,7 @@ std::string Bruteforce::get_route()
 	return route;
 }
 
-int Bruteforce::get_final_distance()
+int Bruteforce::getFinalDistance()
 {
 	return final_res;
 }
@@ -75,6 +75,6 @@ int Bruteforce::get_final_distance()
 void Bruteforce::write_results()
 {
 	bruteforce();
-	std::cout << "Lowest travel value: " << get_final_distance() << std::endl;
-	std::cout << "Lowest travel route: " << get_route() << std::endl;
+	std::cout << "Lowest travel value: " << getFinalDistance() << std::endl;
+	std::cout << "Lowest travel route: " << getFinalRoute() << std::endl;
 }

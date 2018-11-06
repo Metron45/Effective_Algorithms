@@ -10,22 +10,30 @@ Dynamic::Dynamic()
 
 Dynamic::~Dynamic()
 {
-	delete[] route_table;
+	delete ** route_table;
 	route_table = NULL;
 }
 
 void Dynamic::initialize_route_table() 
 {
-	route_table = new unsigned  **[1 << get_size()];
+	if (get_size() != size) {
+		route_table = new unsigned  **[1 << get_size()];
+	}
 	for (int line = 0; line < (1 << get_size()); line++) {
-		route_table[line] = new unsigned  *[get_size()];
+		if (get_size() != size) {
+			route_table[line] = new unsigned  *[get_size()];
+		}
 		for (int column = 0; column< get_size() ; column++) {
-			route_table[line][column] = new unsigned[3];
+			if (get_size() != size) {
+				route_table[line][column] = new unsigned[3];
+			}
 			route_table[line][column][0] = 0;
 			route_table[line][column][1] = 0;
 			route_table[line][column][2] = 0;
 		}
 	}
+
+	size = get_size();
 }
 
 int Dynamic::dynamic() {
@@ -78,7 +86,7 @@ void Dynamic::draw_route_table(int info_type) {
 	}
 }
 
-std::string Dynamic::get_route() {
+std::string Dynamic::getFinalRoute() {
 	std::string route ="";
 	int mask = 1, vertex = 0, new_mask,new_vertex;
 	do {
@@ -100,7 +108,7 @@ std::string Dynamic::get_route() {
 	return route;
 }
 
-int Dynamic::get_final_distance()
+int Dynamic::getFinalDistance()
 {
 	return final_res;
 }
@@ -108,6 +116,6 @@ int Dynamic::get_final_distance()
 void Dynamic::write_results()
 {
 	dynamic();
-	std::cout << "Lowest travel value: " << get_final_distance() << std::endl;
-	std::cout << "Lowest travel route: " << get_route() << std::endl;
+	std::cout << "Lowest travel value: " << getFinalDistance() << std::endl;
+	std::cout << "Lowest travel route: " << getFinalRoute() << std::endl;
 }

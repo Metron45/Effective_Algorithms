@@ -4,8 +4,7 @@
 
 Bound_And_Branch::Bound_And_Branch()
 {
-	final_res = -1;
-	visited = 0;
+	final_value = INT_MAX;
 }
 
 Bound_And_Branch::~Bound_And_Branch()
@@ -14,37 +13,81 @@ Bound_And_Branch::~Bound_And_Branch()
 	final_route = NULL;
 }
 
-int Bound_And_Branch::minimal_edge(int vertex)
+int Bound_And_Branch::minLine(int vertex, int pass, int ** matrix)
 {
-	int minimum = -1;
+	int minimum = INT_MAX;
 	for (int i = 0; i < get_size(); i++) {
-		if (vertex == i) {
-			continue;
-		}
-		if (minimum == -1 || get_distance(vertex, i) < minimum) {
-			minimum = get_distance(vertex, i);
-		}
+			if (matrix[vertex][i] < minimum && i != pass) {
+				minimum = matrix[vertex][i];
+			}
 	}
-	return minimum;
+	if (minimum < INT_MAX) {
+		return minimum;
+	}
+	else {
+		return 0;
+	}
 }
 
-int Bound_And_Branch::minimal_second_edge(int vertex)
+int Bound_And_Branch::minColumn(int vertex, int pass, int ** matrix)
 {
-	int first = -1, second = -1;
-	for (int i = 0; i < get_size(); i++)
-	{
-		if (vertex == i) {
-			continue;
-		}
-		if(get_distance(vertex, i) <= first || first == -1 ) {
-			second = first;
-			first = get_distance(vertex, i);
-		}
-		else if (get_distance(vertex, i) <= second && get_distance(vertex, i) != first || second == -1) {
-			second = get_distance(vertex, i);
+	int minimum = INT_MAX;
+	for (int i = 0; i < get_size(); i++) {
+			if (matrix[i][vertex] < minimum && i != pass) {
+				minimum = matrix[i][vertex];
+			}
+	}
+	if (minimum < INT_MAX) {
+		return minimum;
+	}
+	else {
+		return 0;
+	}
+}
+
+int Bound_And_Branch::reduceMatrixCost(int x, int y, int ** matrix){
+
+	int reduction = 0;
+	int temp = matrix[y][x];
+
+	matrix[y][x] = INT_MAX;
+
+	//reduction of lines
+	for (int i = 0; i < get_size(); i++) {
+		if (i != x ) {
+			reduction += minLine(i, y, matrix);
 		}
 	}
-	return second;
+	//reduction of columnt
+	for (int i = 0; i < get_size(); i++) {
+		if (i != y) {
+			reduction += minColumn(i, x, matrix);
+		}
+	}
+	matrix[y][x] = temp;
+
+	return reduction;
+}
+
+Node Bound_And_Branch::copyNode(Node node)
+{
+	Node newNode;
+
+	newNode.curr_bound = node.curr_bound;
+	newNode.level = node.level;
+
+	newNode.curr_route = new int [get_size()];
+	newNode.matrix = new int *[get_size()];
+
+	for (int i = 0; i < get_size(); i++) {
+		newNode.curr_route[i] = node.curr_route[i];
+		newNode.matrix[i] = new int [get_size()];
+		for (int j = 0; j < get_size(); j++) {
+			newNode.matrix[i][j] = node.matrix[i][j];
+		}
+	}
+
+	return newNode;
 }
 
 void Bound_And_Branch::temp_to_final(int * temp)
@@ -56,7 +99,7 @@ void Bound_And_Branch::temp_to_final(int * temp)
 	final_route[get_size()] = 0;
 }
 
-std::string Bound_And_Branch::get_route() {
+std::string Bound_And_Branch::getFinalRoute() {
 	std::string route;
 	for (int i = 0; i < get_size() + 1; i++) {
 		route += " ";
@@ -72,80 +115,171 @@ std::string Bound_And_Branch::get_route() {
 	return route;
 }
 
-int Bound_And_Branch::get_final_distance(){
-	return final_res;
+int Bound_And_Branch::getFinalDistance(){
+	return final_value;
 }
 
 void Bound_And_Branch::write_results()
 {
 	bnb();
-	std::cout << "Lowest travel value: " << get_final_distance() << std::endl;
-	std::cout << "Lowest travel route: " << get_route() << std::endl;
+	std::cout << "Lowest travel value: " << getFinalDistance() << std::endl;
+	std::cout << "Lowest travel route: " << getFinalRoute() << std::endl;
 }
 
-void Bound_And_Branch::bnb(int curr_bound, int curr_weight, int level, int * curr_route) {
-	if (level == get_size()) {
-		if (get_distance(curr_route[level - 1], curr_route[0]) != 0){
-			int curr_res = curr_weight + get_distance(curr_route[level - 1],curr_route[0]);
-			if (curr_res < final_res || final_res == -1){
-				temp_to_final(curr_route);
-				final_res = curr_res;
-			}
-		}
+
+
+void Bound_And_Branch::bnb(Node node) {
+	
+	if (node.level == get_size())
+	{
+		temp_to_final(node.curr_route);
+		final_value = node.curr_bound;
 	}
 	else {
-		for (int i = 0; i<get_size(); i++){
-			if (get_distance(curr_route[level - 1], i) != 0 && ((visited&(1 << i)) == 0)){
-				int temp = curr_bound;
-				curr_weight += get_distance(curr_route[level - 1], i);
-				curr_bound = calculate_bound(curr_bound, i, level, curr_route);
-				if (curr_bound + curr_weight < final_res || final_res == -1){
-					curr_route[level] = i;
-					visited += 1 << i;
-					bnb(curr_bound, curr_weight, level + 1, curr_route);
+		//dodanie nowych node
+		int bound = INT_MAX;
+		for (int i = 0; i < get_size(); i++)
+		{
+			if (node.matrix[node.curr_route[node.level - 1]][i] != INT_MAX)
+			{
+				//calculating next bound
+				int temp_bound ;
+				temp_bound = node.matrix[node.curr_route[node.level - 1]][i];
+				temp_bound += node.curr_bound;
+				temp_bound += reduceMatrixCost(node.curr_route[node.level - 1], i, node.matrix);
+				//creating next node
+				Node nextNode;
+				nextNode = copyNode(node);
+				nextNode.curr_route[nextNode.level] = i;
+				nextNode.curr_bound = temp_bound;
+				
+				//setting correct rows to INF
+				for (int i = 0; i < get_size(); i++) {
+					nextNode.matrix[nextNode.curr_route[nextNode.level - 1]][i] = INT_MAX;
+					nextNode.matrix[i][nextNode.curr_route[nextNode.level]] = INT_MAX;
 				}
-				curr_weight -= get_distance(curr_route[level - 1],i);
-				curr_bound = temp;
-				visited = 0;
-				for (int j = 0; j < level; j++) {
-					visited += (1 << curr_route[j]);
+				nextNode.matrix[nextNode.curr_route[nextNode.level]][0] = INT_MAX;
+				//reduction of lines
+				for (int i = 0; i < get_size(); i++) {
+					int min = minLine(i, -1, nextNode.matrix);
+					for (int j = 0; j < get_size(); j++) {
+						if (nextNode.matrix[i][j] != INT_MAX) {
+							nextNode.matrix[i][j] -= min;
+						}
+					}
 				}
+				//reduction of columns
+				for (int i = 0; i < get_size(); i++) {
+					int min = minColumn(i, -1, nextNode.matrix);
+					for (int j = 0; j < get_size(); j++) {
+						if (nextNode.matrix[j][i] != INT_MAX) {
+							nextNode.matrix[j][i] -= min;
+						}
+
+					}
+				}
+				nextNode.level++;
+				//adding node to node table
+				nodeTable.push_back(nextNode);
 			}
 		}
+		//finding next minimal node and earasing it from the list
+		Node next = copyNode(nodeTable[0]);
+		int iteration=0, i = 0;
+		for (std::vector<Node>::iterator it = nodeTable.begin(); it != nodeTable.end(); ++it) {
+			if (it->curr_bound < next.curr_bound) {
+				next = copyNode(*it);
+				iteration = i;
+			}
+			//std::cout << std::endl << "Node   Table: ";
+			//std::cout << "Bound:" << it->curr_bound;
+			//std::cout << " Next City:" << it->curr_route[it->level - 1];
+			//std::cout << " Level:" << it->level << std::endl;
+			i++;
+		}
+		nodeTable.erase(nodeTable.begin() + iteration);
+		//std::cout << std::endl << "Choosen Node: ";
+		//std::cout << "Bound:" << next.curr_bound;
+		//std::cout << " Next City:" << next.curr_route[next.level - 1];
+		//std::cout << " Level:" << next.level << std::endl;
+
+		bnb(next);
 	}
 }
 
-int Bound_And_Branch::calculate_bound(int bound, int city, int level, int * route)
-{
-	int edge_first, edge_second;
-	if (level == 1) {
-		edge_first = minimal_edge(route[level - 1]);
-		edge_second = minimal_edge(city);
+void Bound_And_Branch::debug_draw(int ** matrix) {
+	std::cout <<  "debug:" <<std::endl;
+	for (int i = 0; i < get_size(); i++) {
+		for (int j = 0; j < get_size(); j++) {
+			if (matrix[i][j] == INT_MAX) {
+				std::cout << " INF";
+			}
+			else
+			{
+				std::cout << std::setw(4) << matrix[i][j];
+			}
+		}
+		std::cout << std::endl;
 	}
-	else {
-		edge_first = minimal_second_edge(route[level - 1]);
-		edge_second = minimal_edge(city);
-	}
-	int temp = edge_first + edge_second;
-	temp = (temp & 1 == 1) ? temp / 2 + 1 : temp / 2;
-	bound -= temp;
-	return bound;
+	std::cout << std::endl;
 }
 
 void Bound_And_Branch::bnb() {
-	final_res = -1;
-	visited = 0;
+	final_value = INT_MAX;
+	
+	final_route = new int[get_size() + 1];
 
-	int * curr_route, curr_bound = 0; 
+	int * curr_route;
 	curr_route = new int[get_size() + 1];
 	for (int i = 0; i < get_size() + 1; i++) {
 		curr_route[i] = -1;
 	}
+
+	int **matrix;
+	matrix = new int * [get_size()];
 	for (int i = 0; i < get_size(); i++) {
-		curr_bound += (minimal_edge(i) + minimal_second_edge(i));
+		matrix[i] = new int[get_size()];
+		for (int j = 0; j < get_size(); j++) {
+			if (i == j) {
+				matrix[i][j] = INT_MAX;
+			}
+			else {
+				matrix[i][j] = get_distance(i, j);
+			}
+		}
 	}
-	curr_bound = (curr_bound & 1 == 1) ? curr_bound / 2 + 1 : curr_bound / 2;
-	visited = 1;
+
+	int curr_bound = 0;
+	//reduction of lines
+	for (int i = 0; i < get_size(); i++) {
+		int min = minLine(i, -1,  matrix);
+		curr_bound += min;
+		for (int j = 0; j < get_size(); j++) {
+			if (matrix[i][j] != INT_MAX) {
+				matrix[i][j] -= min;
+			}
+		}
+	}
+	//reduction of columnt
+	for (int i = 0; i < get_size(); i++) {
+		int min = minColumn(i, -1, matrix);
+		curr_bound += min;
+		for (int j = 0; j < get_size(); j++) {
+			if (matrix[j][i] != INT_MAX) {
+				matrix[j][i] -= min;
+			}
+			
+		}
+	}
+
 	curr_route[0] = 0;
-	bnb(curr_bound, 0, 1, curr_route);
+
+	Node firstNode;
+	firstNode.curr_bound = curr_bound;
+	firstNode.curr_route = curr_route;
+	firstNode.level = 1;
+	firstNode.matrix = matrix;
+
+	bnb(firstNode);
 }
+

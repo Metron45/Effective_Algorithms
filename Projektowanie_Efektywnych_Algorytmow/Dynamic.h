@@ -10,13 +10,14 @@ private:
 	int final_res;
 	int dynamic(int mask, int position);
 	void initialize_route_table();
+	int size=0;
 public:
 	Dynamic();
 	~Dynamic();
 	int dynamic();
 	void draw_route_table(int info_type);
-	std::string get_route();
-	int get_final_distance();
+	std::string getFinalRoute();
+	int getFinalDistance();
 	void write_results();
 };
 

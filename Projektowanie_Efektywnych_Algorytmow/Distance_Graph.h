@@ -20,6 +20,7 @@ private:
 	void geo_initialize_distance_table(double ** geo_position);
 	void initialize_table_INTMAX();
 	void insert_shortest_INTMIN();
+	void lower_to_full();
 
 public:
 	Distance_Graph();

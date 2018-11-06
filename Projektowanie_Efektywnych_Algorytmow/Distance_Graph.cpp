@@ -204,6 +204,16 @@ void Distance_Graph::insert_shortest_INTMIN()
 	distance_table[0][curr_min_route[get_size() - 2]] = 8;
 }
 
+void Distance_Graph::lower_to_full()
+{
+	for (int line = 0; line < get_size(); line++) {
+		for (int column = 0; column < line; column++) {
+			distance_table[column][line] = distance_table[line][column];
+		}
+	}
+	matrix_type = "FULL_MATRIX";
+}
+
 bool Distance_Graph::load_from_file()
 {
 	std::string filename;
@@ -255,15 +265,16 @@ bool Distance_Graph::load_from_file(std::string filename)
 							getline(file, data);
 							position = data.find("EOF");
 						} while (position == -1);
+						lower_to_full();
 					}
 					else {
 						position = data.find("FULL_MATRIX");
 						if (position > 0 && position < data.size()) {
 							std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
 							matrix_type = "FULL_MATRIX";
-							getline(file, data);
 							getline(file, data); //DISPLAY_DATA_TYPE: TWOD_DISPLAY	
 							getline(file, data); //EDGE_WEIGHT_SECTION
+							getline(file, data); 
 							int line = 0;
 							do {
 								instert_line_full_diagram(data, line);
@@ -328,9 +339,6 @@ void Distance_Graph::draw_distance_table()
 }
 
 int Distance_Graph::get_distance(int line, int column) {
-	if (matrix_type == "LOWER_DIAG_ROW" && column > line) {
-		return distance_table[column][line];
-	}
 	return distance_table[line][column];
 }
 

@@ -1,24 +1,38 @@
 #pragma once
 #include "Distance_Graph.h"
+
+struct Node {
+	int curr_bound;
+	int * curr_route;
+	int level;
+	int ** matrix;
+};
+
 class Bound_And_Branch :
 	public Distance_Graph
 {
 private:
-	int * final_route;
-	int final_res;
-	int visited;
 
-	int minimal_edge(int vertex);
-	int minimal_second_edge(int vertex);
+
+	std::vector<Node> nodeTable;
+
+	int * final_route;
+	int final_value;
+	Node copyNode(Node node);
 	void temp_to_final(int * temp);
-	void bnb(int curr_bound, int current_weight, int level, int * current_path);
-	int calculate_bound(int curr_bound, int city, int level, int * route);
+	int minLine(int vertex, int pass, int ** matrix);
+	int minColumn(int vertex, int pass, int ** matrix);
+	int reduceMatrixCost(int x, int y, int ** matrix);
+	void bnb(Node node);
+
+
 public:
+	void debug_draw(int ** matrix);
 	Bound_And_Branch();
 	~Bound_And_Branch();
 	void bnb();
-	std::string get_route();
-	int get_final_distance();
+	std::string getFinalRoute();
+	int getFinalDistance();
 	void write_results();
 	
 };
