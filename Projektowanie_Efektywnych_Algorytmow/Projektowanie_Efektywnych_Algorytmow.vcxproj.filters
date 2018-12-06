@@ -36,6 +36,12 @@
     <ClInclude Include="Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Simulated_Annealing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Test_Zad2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -59,8 +65,40 @@
     <ClCompile Include="Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Simulated_Annealing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Test_Zad2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Text Include="solutions.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="results.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="grid.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="a280.tsp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="bays29.tsp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="brazil58.tsp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dantzig42.tsp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="fri26.tsp">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="gr17.tsp">
       <Filter>Resource Files</Filter>
     </None>
@@ -70,31 +108,23 @@
     <None Include="gr24.tsp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="test8.tsp">
+    <None Include="gr48.tsp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="bays29.opt.tour">
+    <None Include="gr120.tsp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="bays29.tsp">
+    <None Include="hk48.tsp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="test10.tsp">
+    <None Include="si175.tsp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="burma14.tsp">
+    <None Include="si535.tsp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="ulysses22.tsp">
+    <None Include="si1032.tsp">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="solutions.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="results.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

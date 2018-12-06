@@ -151,9 +151,11 @@
     <ClInclude Include="Bruteforce.h" />
     <ClInclude Include="Distance_Graph.h" />
     <ClInclude Include="Dynamic.h" />
+    <ClInclude Include="Simulated_Annealing.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Test.h" />
+    <ClInclude Include="Test_Zad2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bound_And_Branch.cpp" />
@@ -161,6 +163,7 @@
     <ClCompile Include="Distance_Graph.cpp" />
     <ClCompile Include="Dynamic.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Simulated_Annealing.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -168,21 +171,28 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Test.cpp" />
+    <ClCompile Include="Test_Zad2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bays29.opt.tour" />
+    <Text Include="grid.txt" />
+    <Text Include="results.txt" />
+    <Text Include="solutions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="a280.tsp" />
     <None Include="bays29.tsp" />
-    <None Include="burma14.tsp" />
+    <None Include="brazil58.tsp" />
+    <None Include="dantzig42.tsp" />
+    <None Include="fri26.tsp" />
+    <None Include="gr120.tsp" />
     <None Include="gr17.tsp" />
     <None Include="gr21.tsp" />
     <None Include="gr24.tsp" />
-    <None Include="test10.tsp" />
-    <None Include="test8.tsp" />
-    <None Include="ulysses22.tsp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="results.txt" />
-    <Text Include="solutions.txt" />
+    <None Include="gr48.tsp" />
+    <None Include="hk48.tsp" />
+    <None Include="si1032.tsp" />
+    <None Include="si175.tsp" />
+    <None Include="si535.tsp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

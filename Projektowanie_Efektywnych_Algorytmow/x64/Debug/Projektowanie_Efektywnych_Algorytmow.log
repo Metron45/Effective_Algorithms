@@ -1,4 +1,4 @@
-﻿  Bound_And_Branch.cpp
-  Main.cpp
-  Generating Code...
+﻿  Main.cpp
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\main.cpp(15): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\main.cpp(16): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Projektowanie_Efektywnych_Algorytmow.vcxproj -> C:\Users\Metron\Documents\GitHub\Projektowanie_Efektywnych_Algorytmow\x64\Debug\Projektowanie_Efektywnych_Algorytmow.exe

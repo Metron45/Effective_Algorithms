@@ -240,23 +240,23 @@ bool Distance_Graph::load_from_file(std::string filename)
 			//COMMENT :
 			getline(file, data);
 			position = data.find(':');
-			std::cout << std::setw(25) << "Comment to a problem: " << data.substr(position + 1) << std::endl;
+			//std::cout << std::setw(25) << "Comment to a problem: " << data.substr(position + 1) << std::endl;
 			//DIMENSION :
 			getline(file, data);
 			position = data.find(':');
-			std::cout << std::setw(25) << "Number of towns: " << data.substr(position + 1) << std::endl;
+			//std::cout << std::setw(25) << "Number of towns: " << data.substr(position + 1) << std::endl;
 			set_matrix_sizeof(std::stoi(data.substr(position + 1)));
 			//EDGE_WEIGHT_TYPE : EXPLICIT
 			getline(file, data);
 			position = data.find("EXPLICIT");
 			if (position > 0 && position < data.size()) {
-				std::cout << std::setw(25) << "Edge Weight Type: " << data.substr(position) << std::endl;
+				//std::cout << std::setw(25) << "Edge Weight Type: " << data.substr(position) << std::endl;
 				if (position > 0) {
 					//EDGE_WEIGHT_FORMAT : LOWER_DIAG_ROW
 					getline(file, data);
 					position = data.find("LOWER_DIAG_ROW");
 					if (position > 0 && position < data.size()) {
-						std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
+						//std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
 						getline(file, data);
 						matrix_type = "LOWER_DIAG_ROW";
 						getline(file, data);
@@ -270,7 +270,7 @@ bool Distance_Graph::load_from_file(std::string filename)
 					else {
 						position = data.find("FULL_MATRIX");
 						if (position > 0 && position < data.size()) {
-							std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
+							//std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
 							matrix_type = "FULL_MATRIX";
 							getline(file, data); //DISPLAY_DATA_TYPE: TWOD_DISPLAY	
 							getline(file, data); //EDGE_WEIGHT_SECTION
@@ -292,7 +292,7 @@ bool Distance_Graph::load_from_file(std::string filename)
 			else {
 				position = data.find("GEO");
 				if (position > 0 && position < data.size()) {
-					std::cout << std::setw(25) << "Edge Weight Type: " << data.substr(position) << std::endl;
+					//std::cout << std::setw(25) << "Edge Weight Type: " << data.substr(position) << std::endl;
 					getline(file, data);
 					getline(file, data);
 					getline(file, data);
