@@ -95,83 +95,54 @@ void Distance_Graph::instert_line_full_diagram(std::string line, int position_li
 	}
 }
 
-double Distance_Graph::geo_string_to_array_1(std::string line)
+void Distance_Graph::instert_line_upper_diagram(std::string line)
 {
-	while (line.back() == ' ') {
-		line = line.substr(0, line.size() - 2);
-	}
-	while (line.front() == ' ') {
-		line = line.substr(1, line.size() - 1);
-	}
 	int position;
-	position = line.find(' ');
-	line = line.substr(position, line.size()-1);
-	while (line.front() == ' ') {
-		line = line.substr(1, line.size() - 1);
-	}
-	double array;
-	position = line.find(' ');
-	array = std::stod(line.substr(0, position));
-	return array;
-}
-
-double Distance_Graph::geo_string_to_array_2(std::string line)
-{
 	while (line.back() == ' ') {
-		line = line.substr(0, line.size() - 2);
+		line = line.substr(0, line.size() - 1);
 	}
 	while (line.front() == ' ') {
-		line = line.substr(1, line.size() - 1);
-	}
-	int position;
-	position = line.find(' ');
-	line = line.substr(position, line.size() - 1);
-	while (line.front() == ' ') {
-		line = line.substr(1, line.size() - 1);
+		line = line.substr(1, line.size());
 	}
 	position = line.find(' ');
-	line = line.substr(position, line.size() - 1);
-	while (line.front() == ' ') {
-		line = line.substr(1, line.size() - 1);
+	if (position < 0 && std::stoi(line) == 0) {
+		return;
 	}
-	double array;
-	position = line.find(' ');
-	array = std::stod(line.substr(0, position));
-	return array;
-}
-
-double Distance_Graph::geo_radian(double x) {
-	double deg = (int) x;
-	double min = x - deg;
-	return (3.141592 * (deg + 0.5 * min / 3.0) / 180);
-}
-
-int Distance_Graph::geo_distance(int line, int column, double ** geo_position) {
-	double latitudeI, latitudeJ, longitudeI, longitudeJ;
-	latitudeI  = geo_radian(geo_position[line][0]);
-	latitudeJ  = geo_radian(geo_position[column][0]);
-	longitudeI = geo_radian(geo_position[line][1]);
-	longitudeJ = geo_radian(geo_position[column][1]);
-	double q1, q2, q3;
-	q1 = cos(latitudeI - latitudeJ);
-	q2 = cos(longitudeI - longitudeJ);
-	q3 = cos(longitudeI + longitudeJ);
-	return (int)(6378.388 * acos(0.5*((1.0 + q1)*q2 - (1.0 - q1)*q3)) + 1.0);
-}
-
-void Distance_Graph::geo_initialize_distance_table(double ** geo_position)
-{
-	for (int line = 0; line < get_size(); line++) {
-		for (int column = 0; column < get_size(); column ++) {
-			if (line != column) {
-				distance_table[line][column] = geo_distance(line, column, geo_position);
-			}
-			else {
-				distance_table[line][column] = 0;
+	//finding uninitiated distance table space
+	int position_line = 0, position_column = 1, number;
+	while (distance_table[position_line][position_column] != 0) {
+		position_column++;
+		if (position_column >= get_size()) {
+			position_line++;
+			position_column = position_line + 1;
+		}
+		
+	}
+	//writing line into a matrix
+	while (line.size() > 0) {
+		while (line.front() == ' ') {
+			line = line.substr(1, line.size() - 1);
+		}
+		position = line.find(' ');
+		if (position == -1) {
+			number = std::stoi(line);
+			line = "";
+		}
+		else {
+			number = std::stoi(line.substr(0, position));
+			line = line.substr(position, line.size() - 1);
+		}
+		if (number != 0) {
+			distance_table[position_line][position_column] = number;
+			position_column++;
+			if (position_column >= get_size()) {
+				position_line++;
+				position_column = position_line + 1;
 			}
 		}
 	}
-} 
+
+}
 
 void Distance_Graph::initialize_table_INTMAX()
 {
@@ -208,6 +179,16 @@ void Distance_Graph::lower_to_full()
 {
 	for (int line = 0; line < get_size(); line++) {
 		for (int column = 0; column < line; column++) {
+			distance_table[column][line] = distance_table[line][column];
+		}
+	}
+	matrix_type = "FULL_MATRIX";
+}
+
+void Distance_Graph::upper_to_full()
+{
+	for (int line = 0; line < get_size(); line++) {
+		for (int column = line + 1; column < get_size(); column++) {
 			distance_table[column][line] = distance_table[line][column];
 		}
 	}
@@ -264,47 +245,47 @@ bool Distance_Graph::load_from_file(std::string filename)
 							instert_line_lower_diagram(data);
 							getline(file, data);
 							position = data.find("EOF");
+							if (position == -1) {
+								position = data.find("DISPLAY_DATA_SECTION");
+							}
 						} while (position == -1);
 						lower_to_full();
 					}
-					else {
-						position = data.find("FULL_MATRIX");
-						if (position > 0 && position < data.size()) {
-							//std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
-							matrix_type = "FULL_MATRIX";
-							getline(file, data); //DISPLAY_DATA_TYPE: TWOD_DISPLAY	
-							getline(file, data); //EDGE_WEIGHT_SECTION
-							getline(file, data); 
-							int line = 0;
-							do {
-								instert_line_full_diagram(data, line);
-								line++;
-								getline(file, data);
+					position = data.find("FULL_MATRIX");
+					if (position > 0 && position < data.size()) {
+						//std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
+						matrix_type = "FULL_MATRIX";
+						getline(file, data); //DISPLAY_DATA_TYPE: TWOD_DISPLAY	
+						getline(file, data); //EDGE_WEIGHT_SECTION
+						getline(file, data); 
+						int line = 0;
+						do {
+							instert_line_full_diagram(data, line);
+							line++;
+							getline(file, data);
+							position = data.find("DISPLAY_DATA_SECTION");
+						} while (position == -1);
+					}
+					position = data.find("UPPER_DIAG_ROW");
+					if (position > 0 && position < data.size()) {
+						//std::cout << std::setw(25) << "Matrix Type: " << data.substr(position) << std::endl;
+						matrix_type = "UPPER_DIAG_ROW";
+						getline(file, data); //DISPLAY_DATA_TYPE: NO_DISPLAY
+						getline(file, data); //EDGE_WEIGHT_SECTION
+						getline(file, data);
+						do {
+							instert_line_upper_diagram(data);
+							getline(file, data);
+							position = data.find("EOF");
+							if (position == -1) {
 								position = data.find("DISPLAY_DATA_SECTION");
-							} while (position == -1);
-						}
+							}
+						} while (position == -1);
+						upper_to_full();
 					}
 				}
 				else {
 					std::cout << "Program doesn't work with non-explicit distances" << std::endl;
-				}
-			}
-			else {
-				position = data.find("GEO");
-				if (position > 0 && position < data.size()) {
-					//std::cout << std::setw(25) << "Edge Weight Type: " << data.substr(position) << std::endl;
-					getline(file, data);
-					getline(file, data);
-					getline(file, data);
-					double ** geo_position;
-					geo_position = new double *[get_size()];
-					for (int i = 0; i < get_size(); i++) {
-						getline(file, data);
-						geo_position[i] = new double[2];
-						geo_position[i][0] = geo_string_to_array_1(data);
-						geo_position[i][1] = geo_string_to_array_2(data);
-					}
-					geo_initialize_distance_table(geo_position);
 				}
 			}
 		}

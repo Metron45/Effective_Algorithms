@@ -1,7 +1,7 @@
 #pragma once
 
 struct error_time {
-	int time;
+	long float time;
 	float error;
 };
 
@@ -12,12 +12,14 @@ public:
 	Test_Zad2();
 	~Test_Zad2();
 
-	void Test_Simulated_Annealing(std::string problem_name, float max_temp, float cooling_rate, float min_temp, int max_iter, float temp_jump, int iter_jump, float cooling_jump);
-	void Test_Simulated_Annealing_grid(float max_temp, int max_iter, float temp_jump, int iter_jump);
+	void Set_number_of_tests(int iter, int temp, int tests);
+	void Test_Simulated_Annealing(std::string file, float max_temp, float cool_rate, float temp_jump, float cool_jump);
 
-	static const int number_of_steps = 4;// 12;
+	int number_of_iter_steps;
+	int number_of_temp_steps;
+	int number_of_tests;
+
 	float error_rate(std::string problem_name, int fitness_result);
-	error_time time_test_Simulated_Annealing(std::string file, float max, float rate, float min, int iterations);
-	std::string get_problem_name(int id);
+
 };
 

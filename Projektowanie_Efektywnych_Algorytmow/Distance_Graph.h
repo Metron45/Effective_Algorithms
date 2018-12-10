@@ -11,16 +11,17 @@ private:
 	int * curr_min_route;
 
 	void set_matrix_sizeof(int size);
+
 	void instert_line_lower_diagram(std::string line);
 	void instert_line_full_diagram(std::string line, int position_line);
-	double geo_string_to_array_1(std::string line);
-	double geo_string_to_array_2(std::string line);
-	double geo_radian(double x);
-	int geo_distance(int line, int column, double ** geo_position);
-	void geo_initialize_distance_table(double ** geo_position);
+	void instert_line_upper_diagram(std::string line);
+
 	void initialize_table_INTMAX();
 	void insert_shortest_INTMIN();
+
 	void lower_to_full();
+	void upper_to_full();
+
 
 public:
 	Distance_Graph();

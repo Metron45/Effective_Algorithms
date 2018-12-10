@@ -82,21 +82,21 @@
     <Text Include="grid.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="resultsError.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="resultsTime.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="resultsFit.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="a280.tsp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="bays29.tsp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="brazil58.tsp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="dantzig42.tsp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="fri26.tsp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="gr17.tsp">
@@ -106,9 +106,6 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="gr24.tsp">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="gr48.tsp">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="gr120.tsp">

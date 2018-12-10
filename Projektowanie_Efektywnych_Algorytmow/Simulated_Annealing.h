@@ -14,15 +14,15 @@ public:
 	~Simulated_Annealing();
 	
 
-	
-	void Set_temperature(float max, float rate, float min, int iterations);
+	void Set_route_size();
+	void Set_temperature(float max, float rate);
 	int Calculate();
 
 //private:
+	tour current, next;
 	float max_temperature;
 	float cooling_rate;
-	float min_temperature;
-	int max_iterations;
+
 
 	int calculate_tour_cost(tour x);
 	bool calculate_probability(tour x, tour y, float temp);

@@ -1,5 +1,6 @@
 NAME: si1032
 TYPE: TSP (M.~Hofmeister)
+COMMENT: Comment added by Marek Chmielewski due to inconsistency with other TSP files.
 DIMENSION: 1032
 EDGE_WEIGHT_TYPE: EXPLICIT
 EDGE_WEIGHT_FORMAT: UPPER_DIAG_ROW

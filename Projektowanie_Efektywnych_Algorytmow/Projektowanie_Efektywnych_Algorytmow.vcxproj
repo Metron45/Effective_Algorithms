@@ -176,19 +176,18 @@
   <ItemGroup>
     <Text Include="grid.txt" />
     <Text Include="results.txt" />
+    <Text Include="resultsError.txt" />
+    <Text Include="resultsFit.txt" />
+    <Text Include="resultsTime.txt" />
     <Text Include="solutions.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="a280.tsp" />
     <None Include="bays29.tsp" />
-    <None Include="brazil58.tsp" />
     <None Include="dantzig42.tsp" />
-    <None Include="fri26.tsp" />
     <None Include="gr120.tsp" />
     <None Include="gr17.tsp" />
     <None Include="gr21.tsp" />
     <None Include="gr24.tsp" />
-    <None Include="gr48.tsp" />
     <None Include="hk48.tsp" />
     <None Include="si1032.tsp" />
     <None Include="si175.tsp" />

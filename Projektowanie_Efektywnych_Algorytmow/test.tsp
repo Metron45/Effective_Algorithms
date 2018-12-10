@@ -1,0 +1,19 @@
+NAME: Marek10
+TYPE: TSP
+COMMENT: Comment added by Marek Chmielewski due to inconsistency with other TSP files.
+DIMENSION: 10
+EDGE_WEIGHT_TYPE: EXPLICIT
+EDGE_WEIGHT_FORMAT: UPPER_DIAG_ROW
+DISPLAY_DATA_TYPE: NO_DISPLAY
+EDGE_WEIGHT_SECTION
+0 1 2 3 4 5 6 7 8 9
+0 1 2 3 4 5 6 7 8
+0 1 2 3 4 5 6 7
+0 1 2 3 4 5 6
+0 1 2 3 4 5
+0 1 2 3 4
+0 1 2 3
+0 1 2
+0 1
+0
+EOF
