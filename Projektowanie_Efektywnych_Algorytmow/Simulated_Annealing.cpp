@@ -9,14 +9,14 @@ Simulated_Annealing::Simulated_Annealing()
 
 Simulated_Annealing::~Simulated_Annealing()
 {
-	delete[] current.route;
-	delete[] next.route;
+	delete[] current.chromosome;
+	delete[] next.chromosome;
 }
 
 void Simulated_Annealing::Set_route_size()
 {
-	current.route = new int[get_size()];
-	next.route = new int[get_size()];
+	current.chromosome = new int[get_size()];
+	next.chromosome = new int[get_size()];
 }
 
 void Simulated_Annealing::Set_temperature(float max, float rate)
@@ -33,11 +33,11 @@ int Simulated_Annealing::Calculate()
 	float temperature = max_temperature;
 	//initialization
 	for (int i = 0; i < get_size(); i++) {
-		current.route[i] = i;
+		current.chromosome[i] = i;
 	}
 	for (int i = 0; i < get_size(); i++) {
 		int random_point = rand() % get_size();
-		std::swap(next.route[i], next.route[random_point]);
+		std::swap(next.chromosome[i], next.chromosome[random_point]);
 	}
 	current.fitness = calculate_tour_cost(current);
 
@@ -45,7 +45,7 @@ int Simulated_Annealing::Calculate()
 	while (temperature > 0.1) {
 		//redo route for next
 		for (int i = 0; i < get_size(); i++) {
-			next.route[i] = current.route[i];
+			next.chromosome[i] = current.chromosome[i];
 		}
 
 		//swap 2 random cities
@@ -54,7 +54,7 @@ int Simulated_Annealing::Calculate()
 		do {
 			point_y = rand() % get_size();
 		} while (point_y == point_x);
-		std::swap(next.route[point_x], next.route[point_y]);
+		std::swap(next.chromosome[point_x], next.chromosome[point_y]);
 
 		//calculate next route fitness
 		next.fitness = calculate_tour_cost(next);
@@ -62,13 +62,13 @@ int Simulated_Annealing::Calculate()
 		//check if worth checking
 		if (next.fitness < current.fitness) {
 			for (int i = 0; i < get_size(); i++) {
-				current.route[i] = next.route[i];
+				current.chromosome[i] = next.chromosome[i];
 			}
 			current.fitness = next.fitness;
 		}
 		else if (calculate_probability(current, next, temperature)) {
 			for (int i = 0; i < get_size(); i++) {
-				current.route[i] = next.route[i];
+				current.chromosome[i] = next.chromosome[i];
 			}
 			current.fitness = next.fitness;
 		}
@@ -84,9 +84,9 @@ int Simulated_Annealing::calculate_tour_cost(tour x)
 	int tour_cost = 0;
 	for (int i = 1; i < get_size(); i++)
 	{
-		tour_cost += get_distance(x.route[i - 1], x.route[i]);
+		tour_cost += get_distance(x.chromosome[i - 1], x.chromosome[i]);
 	}
-	tour_cost += get_distance(x.route[get_size() - 1], x.route[0]);
+	tour_cost += get_distance(x.chromosome[get_size() - 1], x.chromosome[0]);
 	return tour_cost;
 }
 

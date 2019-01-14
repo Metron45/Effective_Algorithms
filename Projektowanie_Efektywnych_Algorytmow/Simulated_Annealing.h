@@ -2,7 +2,7 @@
 #include "Distance_Graph.h"
 
 struct tour {
-	int * route;
+	int * chromosome;
 	int fitness;
 };
 

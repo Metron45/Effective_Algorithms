@@ -1,30 +1,18 @@
-﻿  stdafx.cpp
-  Bound_And_Branch.cpp
-  Bruteforce.cpp
-  Distance_Graph.cpp
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\distance_graph.cpp(149): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\distance_graph.cpp(219): warning C4305: 'argument': truncation from 'int' to 'const _Elem'
-          with
-          [
-              _Elem=char
-          ]
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\distance_graph.cpp(219): warning C4309: 'argument': truncation of constant value
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\distance_graph.cpp(212): warning C4101: 'number_of_towns': unreferenced local variable
-  Dynamic.cpp
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\dynamic.cpp(63): warning C4018: '<': signed/unsigned mismatch
-  Main.cpp
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad2.h(4): warning C4215: nonstandard extension used: long float
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\main.cpp(17): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\main.cpp(19): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\main.cpp(52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\main.cpp(84): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Simulated_Annealing.cpp
-  Test.cpp
-  Test_Zad2.cpp
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad2.h(4): warning C4215: nonstandard extension used: long float
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad2.cpp(42): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad2.cpp(48): warning C4101: 'current_results': unreferenced local variable
+﻿  Test_Zad3.cpp
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(31): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(45): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(65): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(77): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(77): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(99): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(112): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(134): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(245): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\metron\documents\github\projektowanie_efektywnych_algorytmow\projektowanie_efektywnych_algorytmow\test_zad3.cpp(248): warning C4305: 'argument': truncation from 'double' to 'float'
   Generating code
-  All 282 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  1 of 289 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Projektowanie_Efektywnych_Algorytmow.vcxproj -> C:\Users\Metron\Documents\GitHub\Projektowanie_Efektywnych_Algorytmow\Release\Projektowanie_Efektywnych_Algorytmow.exe

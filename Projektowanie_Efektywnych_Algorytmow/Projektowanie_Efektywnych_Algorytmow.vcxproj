@@ -151,17 +151,20 @@
     <ClInclude Include="Bruteforce.h" />
     <ClInclude Include="Distance_Graph.h" />
     <ClInclude Include="Dynamic.h" />
+    <ClInclude Include="Genetic.h" />
     <ClInclude Include="Simulated_Annealing.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Test_Zad2.h" />
+    <ClInclude Include="Test_Zad3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bound_And_Branch.cpp" />
     <ClCompile Include="Bruteforce.cpp" />
     <ClCompile Include="Distance_Graph.cpp" />
     <ClCompile Include="Dynamic.cpp" />
+    <ClCompile Include="Genetic.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Simulated_Annealing.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -172,6 +175,7 @@
     </ClCompile>
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Test_Zad2.cpp" />
+    <ClCompile Include="Test_Zad3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="grid.txt" />
